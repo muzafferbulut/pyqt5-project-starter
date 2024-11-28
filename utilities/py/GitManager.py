@@ -6,7 +6,7 @@ class GitManager:
     def createARepository(self):
         pass
     
-    def createFirstCommit(self):
+    def createFirstCommit(self, message):
         pass
 
     def addGitIgnoreFile(self):

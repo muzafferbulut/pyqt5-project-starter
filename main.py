@@ -1,9 +1,12 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from utilities.py.PythonFileManager import PythonFileManager
+from utilities.py.QtFileManager import QtFileManager
 from utilities.py.FileManager import FileManager
 from utilities.py.GitManager import GitManager
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtCore import QRegExp
 from PyQt5.uic import loadUi
+import json
 import sys
 import os
 
@@ -15,6 +18,8 @@ class PyqtProjectGenerator(QMainWindow):
 
         self.fileManager = FileManager()
         self.gitManager = GitManager()
+        self.qtManager = QtFileManager()
+        self.pyManager = PythonFileManager()
 
         self.selectProjectDirectoryButton.clicked.connect(self.selectProjectDirectory)
         self.selectMainWindowIconButton.clicked.connect(self.selectMainWindowIcon)
@@ -36,16 +41,38 @@ class PyqtProjectGenerator(QMainWindow):
 
         # icon file
         self.fileManager.copyFile(self.mainWindowIconPath, f"{os.path.join(self.projectDirectory, self.projectName)}/img/")
-        self.fileManager.rename(f"{os.path.join(self.projectDirectory, self.projectName)}/img/{self.mainWindowIconPath.split("/")[-1]}", f"{self.projectName}_icon.png")
+        self.fileManager.rename(f"{os.path.join(self.projectDirectory, self.projectName)}/img/{self.mainWindowIconPath.split("/")[-1]}", f"{self.projectName.lower()}_icon.png")
 
         # set paths
         self.mainWindowIconPath = f"{os.path.join(self.projectDirectory, self.projectName)}/img/{self.projectName}_icon.png"
-        self.uiPath = f"{os.path.join(self.projectDirectory, self.projectName)}/ui/{self.projectName}.ui"
+        self.uiPath = f"{os.path.join(self.projectDirectory, self.projectName)}/ui/{self.projectName.lower()}.ui"
         
         # generate file
-        self.fileManager.setMainWindowProperties(self.uiPath, self.mainWindowTitle, self.mainWindowIconPath)
-        self.fileManager.generateMainPy(self.projectName, self.uiPath, os.path.join(self.projectDirectory, self.projectName))
+        self.qtManager.setMainWindowProperties(self.uiPath, self.mainWindowTitle, self.mainWindowIconPath)
+        self.pyManager.generateMainPy(self.projectName, os.path.join(self.projectDirectory, self.projectName))
 
+        if self.addFileManagerCheck.isChecked():
+            self.fileManager.copyFile("utilities/py/FileManager.py", f"{os.path.join(self.projectDirectory, self.projectName)}/")
+        
+        if self.addDatabaseManagerCheck.isChecked():
+            self.fileManager.copyFile("utilities/py/DatabaseManager.py", f"{os.path.join(self.projectDirectory, self.projectName)}/")
+
+        if self.createGitRepo.isChecked():
+            self.gitManager.createARepository()
+
+        if self.createFirstCommit.isChecked():
+            self.gitManager.createFirstCommit("Initial commit with pyqt5 project starter.")
+
+        if self.addDefaultGitignoreFile.isChecked():
+            self.fileManager.copyFile("files/.gitignore", f"{os.path.join(self.projectDirectory, self.projectName)}/")
+
+        if self.addLicense.isChecked():
+            self.fileManager.copyFile("files/LICENSE", f"{os.path.join(self.projectDirectory, self.projectName)}/")
+
+        if self.editWithQtDesignerCheck.isChecked():
+            with open("utilities/files/paths.json", "r") as file:
+                data = json.load(file)
+            self.qtManager.openWithQtDesigner(data["qt_designer_path"])
 
         QMessageBox.information(self, "Info", "The process was successfull!")
 
