@@ -6,7 +6,6 @@ from utilities.py.GitManager import GitManager
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtCore import QRegExp
 from PyQt5.uic import loadUi
-import json
 import sys
 import os
 
