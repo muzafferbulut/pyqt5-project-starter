@@ -37,7 +37,7 @@ class PyqtProjectGenerator(QMainWindow):
 
         # ui file
         self.fileManager.copyFile("utilities/ui/sample.ui", f"{os.path.join(self.projectDirectory, self.projectName)}/ui/")
-        self.fileManager.rename(f"{os.path.join(self.projectDirectory, self.projectName)}/ui/sample.ui", f"{self.projectName}.ui")
+        self.fileManager.rename(f"{os.path.join(self.projectDirectory, self.projectName)}/ui/sample.ui", f"{self.projectName.lower()}.ui")
 
         # icon file
         self.fileManager.copyFile(self.mainWindowIconPath, f"{os.path.join(self.projectDirectory, self.projectName)}/img/")
@@ -47,7 +47,7 @@ class PyqtProjectGenerator(QMainWindow):
         self.mainWindowIconPath = f"{os.path.join(self.projectDirectory, self.projectName)}/img/{self.projectName}_icon.png"
         self.uiPath = f"{os.path.join(self.projectDirectory, self.projectName)}/ui/{self.projectName.lower()}.ui"
         
-        # generate file
+        # open with qt designer
         self.qtManager.setMainWindowProperties(self.uiPath, self.mainWindowTitle, self.mainWindowIconPath)
         self.pyManager.generateMainPy(self.projectName, os.path.join(self.projectDirectory, self.projectName))
 
@@ -58,23 +58,7 @@ class PyqtProjectGenerator(QMainWindow):
             self.fileManager.copyFile("utilities/py/DatabaseManager.py", f"{os.path.join(self.projectDirectory, self.projectName)}/")
 
         if self.createGitRepo.isChecked():
-            self.gitManager.createARepository()
-
-        if self.createFirstCommit.isChecked():
-            self.gitManager.createFirstCommit("Initial commit with pyqt5 project starter.")
-
-        if self.addDefaultGitignoreFile.isChecked():
-            self.fileManager.copyFile("files/.gitignore", f"{os.path.join(self.projectDirectory, self.projectName)}/")
-
-        if self.addLicense.isChecked():
-            self.fileManager.copyFile("files/LICENSE", f"{os.path.join(self.projectDirectory, self.projectName)}/")
-
-        if self.editWithQtDesignerCheck.isChecked():
-            with open("utilities/files/paths.json", "r") as file:
-                data = json.load(file)
-            self.qtManager.openWithQtDesigner(data["qt_designer_path"])
-
-        QMessageBox.information(self, "Info", "The process was successfull!")
+            self.gitManager.createARepository(self.projectDirectory)
 
     def selectMainWindowIcon(self):
         try:

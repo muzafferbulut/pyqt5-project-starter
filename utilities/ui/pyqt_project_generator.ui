@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>546</width>
-    <height>568</height>
+    <width>548</width>
+    <height>507</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,19 +22,19 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <property name="spacing">
-       <number>10</number>
+       <number>5</number>
       </property>
       <property name="leftMargin">
-       <number>10</number>
+       <number>5</number>
       </property>
       <property name="topMargin">
-       <number>10</number>
+       <number>5</number>
       </property>
       <property name="rightMargin">
-       <number>10</number>
+       <number>5</number>
       </property>
       <property name="bottomMargin">
-       <number>10</number>
+       <number>5</number>
       </property>
       <item>
        <widget class="QGroupBox" name="groupBox">
@@ -66,21 +66,18 @@
          <item>
           <layout class="QGridLayout" name="gridLayout">
            <property name="leftMargin">
-            <number>10</number>
+            <number>0</number>
            </property>
            <property name="topMargin">
-            <number>10</number>
+            <number>0</number>
            </property>
            <property name="rightMargin">
-            <number>10</number>
+            <number>0</number>
            </property>
            <property name="bottomMargin">
-            <number>10</number>
+            <number>0</number>
            </property>
-           <property name="horizontalSpacing">
-            <number>10</number>
-           </property>
-           <property name="verticalSpacing">
+           <property name="spacing">
             <number>0</number>
            </property>
            <item row="1" column="0">
@@ -164,21 +161,18 @@ QPushButton:pressed {
          <item>
           <layout class="QGridLayout" name="gridLayout_3">
            <property name="leftMargin">
-            <number>10</number>
+            <number>0</number>
            </property>
            <property name="topMargin">
-            <number>10</number>
+            <number>0</number>
            </property>
            <property name="rightMargin">
-            <number>10</number>
+            <number>0</number>
            </property>
            <property name="bottomMargin">
-            <number>10</number>
+            <number>0</number>
            </property>
-           <property name="horizontalSpacing">
-            <number>10</number>
-           </property>
-           <property name="verticalSpacing">
+           <property name="spacing">
             <number>0</number>
            </property>
            <item row="0" column="1">
@@ -284,6 +278,16 @@ QPushButton:pressed {
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
+            <widget class="QCheckBox" name="editWithQtDesignerCheck">
+             <property name="text">
+              <string>Continue with QtDesigner</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QCheckBox" name="createGitRepo">
              <property name="text">
               <string>Start as a git repository</string>
@@ -293,47 +297,7 @@ QPushButton:pressed {
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QCheckBox" name="createFirstCommit">
-             <property name="text">
-              <string>Add First Commit</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="addDefaultGitignoreFile">
-             <property name="text">
-              <string>Add .gitignore file</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="addLicense">
-             <property name="text">
-              <string>Add Apache License</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
           </layout>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="editWithQtDesignerCheck">
-           <property name="text">
-            <string>Edit *.ui file with Qt Designer</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout">

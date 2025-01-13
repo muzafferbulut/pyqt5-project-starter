@@ -15,7 +15,7 @@ class {projectName}(QMainWindow):
 
     def __init__(self):
         super({projectName}, self).__init__()
-        loadUi("ui/{projectName}.ui", self)
+        loadUi("ui/{projectName.lower()}.ui", self)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
