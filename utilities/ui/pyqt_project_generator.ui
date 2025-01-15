@@ -13,12 +13,12 @@
   <property name="minimumSize">
    <size>
     <width>450</width>
-    <height>450</height>
+    <height>360</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>800</width>
+    <width>600</width>
     <height>800</height>
    </size>
   </property>
@@ -288,8 +288,8 @@ QPushButton:pressed {
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="0">
             <widget class="QCheckBox" name="editWithQtDesignerCheck">
              <property name="text">
               <string>Continue with QtDesigner</string>
@@ -299,7 +299,7 @@ QPushButton:pressed {
              </property>
             </widget>
            </item>
-           <item>
+           <item row="0" column="1">
             <widget class="QCheckBox" name="createGitRepo">
              <property name="text">
               <string>Start as a git repository</string>
@@ -309,10 +309,16 @@ QPushButton:pressed {
              </property>
             </widget>
            </item>
-           <item>
+           <item row="0" column="2">
             <widget class="QPushButton" name="generateProjectButton">
              <property name="enabled">
               <bool>true</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
              <property name="styleSheet">
               <string notr="true">QPushButton {
