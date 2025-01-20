@@ -5,7 +5,8 @@ class PythonFileManager:
     def __init__(self):
         pass
 
-    def generateMainPy(self, projectName,directory):
+    @staticmethod
+    def generateMainPy(projectName,directory):
         script = f"""from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUi
 import sys

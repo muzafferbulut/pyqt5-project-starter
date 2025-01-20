@@ -1,19 +1,19 @@
 import subprocess
-from PyQt5.QtWidgets import QMessageBox
-import sys
 
 class QtFileManager:
 
     def __init__(self):
         pass
 
-    def openWithQtDesigner(self, qtDesignerPath, uiPath):
+    @staticmethod
+    def openWithQtDesigner(qtDesignerPath, uiPath):
         try:
             subprocess.run([qtDesignerPath, uiPath], check=True)
         except subprocess.CalledProcessError as e:
-            QMessageBox.critical(self, f"Error opening {uiPath} with Qt Designer: {e}")
-            
-    def setMainWindowProperties(self, uiPath, title, iconPath):
+            return f"Error opening {uiPath} with Qt Designer: {e}"
+    
+    @staticmethod
+    def setMainWindowProperties(uiPath, title, iconPath):
         try:
             with open(uiPath, "r", encoding="utf-8") as file:
                 lines = file.readlines()

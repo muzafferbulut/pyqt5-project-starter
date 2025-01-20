@@ -15,11 +15,6 @@ class PyqtProjectGenerator(QMainWindow):
         super(PyqtProjectGenerator, self).__init__()
         loadUi("utilities/ui/pyqt_project_generator.ui", self)
 
-        self.fileManager = FileManager()
-        self.gitManager = GitManager()
-        self.qtManager = QtFileManager()
-        self.pyManager = PythonFileManager()
-
         self.selectProjectDirectoryButton.clicked.connect(self.selectProjectDirectory)
         self.selectMainWindowIconButton.clicked.connect(self.selectMainWindowIcon)
         self.generateProjectButton.clicked.connect(self.generateProject)
@@ -32,43 +27,43 @@ class PyqtProjectGenerator(QMainWindow):
         self.mainWindowIconPath = self.windowIconLineEdit.text()
         self.mainWindowTitle = self.windowTitleLineEdit.text()
 
-        self.fileManager.createProjectFolder(self.projectDirectory, self.projectName)
+        FileManager.createProjectFolder(self.projectDirectory, self.projectName)
 
         # ui file
-        self.fileManager.copyFile("utilities/ui/sample.ui", f"{os.path.join(self.projectDirectory, self.projectName)}/ui/")
-        self.fileManager.rename(f"{os.path.join(self.projectDirectory, self.projectName)}/ui/sample.ui", f"{self.projectName.lower()}.ui")
+        FileManager.copyFile("utilities/ui/sample.ui", f"{os.path.join(self.projectDirectory, self.projectName)}/ui/")
+        FileManager.rename(f"{os.path.join(self.projectDirectory, self.projectName)}/ui/sample.ui", f"{self.projectName.lower()}.ui")
 
         # icon file
-        self.fileManager.copyFile(self.mainWindowIconPath, f"{os.path.join(self.projectDirectory, self.projectName)}/img/")
-        self.fileManager.rename(f"{os.path.join(self.projectDirectory, self.projectName)}/img/{self.mainWindowIconPath.split("/")[-1]}", f"{self.projectName.lower()}_icon.png")
+        FileManager.copyFile(self.mainWindowIconPath, f"{os.path.join(self.projectDirectory, self.projectName)}/img/")
+        FileManager.rename(f"{os.path.join(self.projectDirectory, self.projectName)}/img/{self.mainWindowIconPath.split("/")[-1]}", f"{self.projectName.lower()}_icon.png")
 
         # set paths
         self.mainWindowIconPath = f"{os.path.join(self.projectDirectory, self.projectName)}/img/{self.projectName}_icon.png"
         self.uiPath = f"{os.path.join(self.projectDirectory, self.projectName)}/ui/{self.projectName.lower()}.ui"
         
         # open with qt designer
-        self.qtManager.setMainWindowProperties(self.uiPath, self.mainWindowTitle, self.mainWindowIconPath)
-        self.pyManager.generateMainPy(self.projectName, os.path.join(self.projectDirectory, self.projectName))
+        QtFileManager.setMainWindowProperties(self.uiPath, self.mainWindowTitle, self.mainWindowIconPath)
+        PythonFileManager.generateMainPy(self.projectName, os.path.join(self.projectDirectory, self.projectName))
 
         if self.addFileManagerCheck.isChecked():
-            self.fileManager.copyFile("utilities/py/FileManager.py", f"{os.path.join(self.projectDirectory, self.projectName)}/")
+            FileManager.copyFile("utilities/py/FileManager.py", f"{os.path.join(self.projectDirectory, self.projectName)}/")
         
         if self.addDatabaseManagerCheck.isChecked():
-            self.fileManager.copyFile("utilities/py/DatabaseManager.py", f"{os.path.join(self.projectDirectory, self.projectName)}/")
+            FileManager.copyFile("utilities/py/DatabaseManager.py", f"{os.path.join(self.projectDirectory, self.projectName)}/")
 
         if self.createGitRepo.isChecked():
-            self.gitManager.createARepository(self.projectDirectory)
+            GitManager.createARepository(self.projectDirectory)
 
     def selectMainWindowIcon(self):
         try:
-            self.windowIconPath = self.fileManager.selectFile("PNG")
+            self.windowIconPath = FileManager.selectFile("PNG")
             self.windowIconLineEdit.setText(self.windowIconPath)
         except Exception as e:
             QMessageBox.warning(self, "Uyarı", "Lütfen ikon dosyasını seçtiğinizden emin olun!")
 
     def selectProjectDirectory(self):
         try:
-            self.projectDirectory = self.fileManager.selectDirectory()
+            self.projectDirectory = FileManager.selectDirectory()
             self.projectDirectoryLineEdit.setText(self.projectDirectory)
         except Exception as e:
             QMessageBox.warning(self, "Uyarı", "Dizin seçilemedi!")
