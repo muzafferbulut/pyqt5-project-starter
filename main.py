@@ -20,6 +20,7 @@ class PyqtProjectGenerator(QMainWindow):
         self.generateProjectButton.clicked.connect(self.generateProject)
         validator = QRegExpValidator(QRegExp("^[A-Za-z]*$"), self.projectNameLineEdit)
         self.projectNameLineEdit.setValidator(validator)
+        self.qtDesignerPath = "C:\\Program Files\\QGIS 3.34.0\\apps\\qt5\\bin\\designer.exe"
 
     def generateProject(self):
         self.projectDirectory = self.projectDirectoryLineEdit.text()
@@ -53,6 +54,11 @@ class PyqtProjectGenerator(QMainWindow):
 
         if self.createGitRepo.isChecked():
             GitManager.createARepository(self.projectDirectory)
+        
+        if self.editWithQtDesignerCheck.isChecked():
+            QtFileManager.openWithQtDesigner(self.qtDesignerPath, self.uiPath)
+
+        print(f"The {self.projectName} project is being launched.")
 
     def selectMainWindowIcon(self):
         try:
